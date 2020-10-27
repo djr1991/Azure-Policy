@@ -1,0 +1,49 @@
+{
+ "properties": {
+  "displayName": "Deny VM/VMSS not from SIG",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "31ae7dd2-fed1-4067-857b-b8e59e1edd45",
+   "createdOn": "2020-10-13T17:31:24.2374785Z",
+   "updatedBy": "31ae7dd2-fed1-4067-857b-b8e59e1edd45",
+   "updatedOn": "2020-10-21T19:59:20.6080973Z"
+  },
+  "parameters": {},
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "in": [
+       "Microsoft.Compute/virtualMachines",
+       "Microsoft.Compute/virtualMachineScaleSets"
+      ]
+     },
+     {
+      "anyOf": [
+       {
+        "allOf": [
+         {
+          "field": "Microsoft.Compute/imageId",
+          "notContains": "/subscriptions/52c8334e-33c1-4df4-bba5-859bf96b7377/resourceGroups/sharedimagegallery/providers/Microsoft.Compute/galleries/dyreedsharedimagegallery"
+         },
+         {
+          "field": "Microsoft.Compute/imageId",
+          "notContains": "/subscriptions/52c8334e-33c1-4df4-bba5-859bf96b7377/resourceGroups/sharedimagegallery/providers/Microsoft.Compute/galleries/dyreedsig2"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "audit"
+   }
+  }
+ },
+ "id": "/subscriptions/52c8334e-33c1-4df4-bba5-859bf96b7377/providers/Microsoft.Authorization/policyDefinitions/31574bd9-b7e9-48e0-9a9e-3f1da5ab231f",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "31574bd9-b7e9-48e0-9a9e-3f1da5ab231f"
+}

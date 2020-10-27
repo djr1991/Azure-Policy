@@ -1,0 +1,37 @@
+{
+ "properties": {
+  "displayName": "Deny VM/VMSS not from SIG - using LIKE",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "31ae7dd2-fed1-4067-857b-b8e59e1edd45",
+   "createdOn": "2020-10-21T20:01:04.1025349Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {},
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "in": [
+       "Microsoft.Compute/virtualMachines",
+       "Microsoft.Compute/virtualMachineScaleSets"
+      ]
+     },
+     {
+      "field": "Microsoft.Compute/imageId",
+      "notLike": "/subscriptions/52c8334e-33c1-4df4-bba5-859bf96b7377/resourceGroups/sharedimagegallery/providers/Microsoft.Compute/galleries/*"
+     }
+    ]
+   },
+   "then": {
+    "effect": "deny"
+   }
+  }
+ },
+ "id": "/subscriptions/52c8334e-33c1-4df4-bba5-859bf96b7377/providers/Microsoft.Authorization/policyDefinitions/d13db24f-fea5-4c65-8f5b-1ffc7d0e0bfe",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "d13db24f-fea5-4c65-8f5b-1ffc7d0e0bfe"
+}

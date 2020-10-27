@@ -1,0 +1,33 @@
+name: manage-azure-policy-766e47d3
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Deny_VM/VMSS_not_from_SIG_31574bd9-b7e9-48e0-9a9e-3f1da5ab231f/**'
+#      - 'policies/Deny_VM/VMSS_not_from_SIG_-_using_LIKE_d13db24f-fea5-4c65-8f5b-1ffc7d0e0bfe/**'
+#      - .github/workflows/manage-azure-policy-766e47d3.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_766e47d3}}
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Deny_VM/VMSS_not_from_SIG_31574bd9-b7e9-48e0-9a9e-3f1da5ab231f/**
+          policies/Deny_VM/VMSS_not_from_SIG_-_using_LIKE_d13db24f-fea5-4c65-8f5b-1ffc7d0e0bfe/**
