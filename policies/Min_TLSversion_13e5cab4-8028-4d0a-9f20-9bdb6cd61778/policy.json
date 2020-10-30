@@ -1,0 +1,54 @@
+{
+ "properties": {
+  "displayName": "Min_TLSversion",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "31ae7dd2-fed1-4067-857b-b8e59e1edd45",
+   "createdOn": "2020-10-28T15:19:13.2062049Z",
+   "updatedBy": "31ae7dd2-fed1-4067-857b-b8e59e1edd45",
+   "updatedOn": "2020-10-30T13:51:25.8235Z"
+  },
+  "parameters": {},
+  "policyRule": {
+   "if": {
+    "anyOf": [
+     {
+      "allOf": [
+       {
+        "field": "type",
+        "equals": "Microsoft.Web/sites"
+       },
+       {
+        "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+        "exists": "true"
+       },
+       {
+        "field": "Microsoft.Web/sites/siteConfig.minTlsVersion",
+        "notEquals": "1.2"
+       }
+      ]
+     },
+     {
+      "allOf": [
+       {
+        "field": "type",
+        "equals": "Microsoft.Web/sites/config"
+       },
+       {
+        "field": "Microsoft.Web/sites/config/web.minTlsVersion",
+        "notEquals": "1.2"
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "deny"
+   }
+  }
+ },
+ "id": "/subscriptions/52c8334e-33c1-4df4-bba5-859bf96b7377/providers/Microsoft.Authorization/policyDefinitions/13e5cab4-8028-4d0a-9f20-9bdb6cd61778",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "13e5cab4-8028-4d0a-9f20-9bdb6cd61778"
+}
